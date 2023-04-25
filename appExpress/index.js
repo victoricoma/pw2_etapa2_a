@@ -6,7 +6,7 @@ const path = require('path')
 const basePath = path.join(__dirname,'templates')
 
 var checkAuth = function(req, res, next){
-    req.authStatus = false
+    req.authStatus = true
     if(req.authStatus){
         console.log('Está Logado pode continuar!')
         next()
@@ -19,6 +19,12 @@ app.use(checkAuth)
 
 app.get('/', (req, res)=>{
     res.sendFile(`${basePath}/index.html`)
+})
+
+app.get('/user/:id', (req, res)=>{
+    let emailUser = req.params.id + "@gmail.com"
+    console.log(`Parametro de usuario: ${emailUser}`)
+    res.sendFile(`${basePath}/user.html`)
 })
 
 app.listen(port, () => {
